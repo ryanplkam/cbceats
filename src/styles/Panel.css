@@ -1,0 +1,11 @@
+.panel-active {
+    background: green;
+}
+
+.panel.panel-active p {
+    display: inline;
+}
+
+.panel p {
+    display:none;
+}

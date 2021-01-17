@@ -1,3 +1,11 @@
+.panel {
+    padding: 10px;
+}
+
+.panel h3 {
+    margin-top: 0;
+}
+
 .panel-active {
     background: green;
 }

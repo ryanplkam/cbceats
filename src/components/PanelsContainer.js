@@ -7,12 +7,17 @@ export default class PanelsContainer extends React.Component {
     super(props);
 
     this.state = {
-      activePanel: null
+      activePanel: null,
     };
   }
 
+  getDisplayPercent = () => {
+    let percentComplete = this.getPercentComplete();
+    return isNaN(percentComplete) ? "" : percentComplete;
+  };
+
+  // returns NaN or a number 0 - 100
   getPercentComplete = () => {
-      console.log('here')
     return Math.round(
       (Object.values(this.props.panelsContent).filter((x) => x.complete)
         .length /
@@ -28,7 +33,16 @@ export default class PanelsContainer extends React.Component {
   };
 
   onPanelComplete = (panelId) => {
-    this.props.onPanelComplete(panelId)
+    this.props.onPanelComplete(panelId);
+  };
+
+  getMessage = () => {
+    let percentComplete = this.getPercentComplete();
+    return percentComplete === 100
+      ? ":)"
+      : isNaN(percentComplete)
+      ? "Oops, all out of boxes! Add some boxes or refresh the page to start again"
+      : "Check the boxes to get started.";
   };
 
   render() {
@@ -48,19 +62,17 @@ export default class PanelsContainer extends React.Component {
       );
     }
 
-    let percentComplete = this.getPercentComplete();
     let className = "panel-container";
-    let message =
-      percentComplete === 100 ? ":)" : "Check the boxes to get started.";
+    let percentCompletea = this.getPercentComplete();
     return (
       <div className={className}>
-        {message}
+        {this.getMessage()}
         <div className="panel-container-header">
           <div className="panel-container-header-left">
             <b>Topics</b>
           </div>
           <div className="panel-container-header-right">
-            Completion: {isNaN(percentComplete) ? "" : percentComplete}%
+            Completion: {this.getDisplayPercent()}%
           </div>
         </div>
         {panels}

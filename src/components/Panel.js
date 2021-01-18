@@ -4,6 +4,7 @@ import "./../styles/Common.css";
 import Checkbox from "./Checkbox";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export default class Panel extends React.Component {
   constructor(props) {
@@ -11,7 +12,12 @@ export default class Panel extends React.Component {
   }
 
   onClick = (e) => {
-    this.props.onPanelClick(this.props.id);
+    this.props.onPanelSelect(this.props.id);
+  };
+
+  onDelete = (e) => {
+    e.stopPropagation();
+    this.props.onPanelDelete(this.props.id);
   };
 
   render() {
@@ -38,6 +44,9 @@ export default class Panel extends React.Component {
           </div>
           <div className="panel-header-title">
             <p>{panelContent.panelTitle}</p>
+          </div>
+          <div className={"panel-header-right"}>
+            <DeleteIcon onClick={this.onDelete}></DeleteIcon>
           </div>
           <div className={"panel-header-right"}>{panelArrow}</div>
         </div>

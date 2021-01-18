@@ -55,13 +55,11 @@ export default class PanelsContainer extends React.Component {
         ></Panel>
       );
     });
+    let percentComplete = this.getPercentComplete();
+
     return (
       <>
-        <div>Currently open panel is {`${this.state.activePanel}`}</div>
-        <div>
-          This panel container is {this.getPercentComplete()}% completed
-        </div>
-
+        I'm {percentComplete}% complete. {percentComplete === 100 ? "Yay!" : percentComplete === 0 ? ":(" : ""}
         {panels}
       </>
     );

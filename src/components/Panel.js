@@ -1,6 +1,9 @@
 import React from "react";
 import "./../styles/Panel.css";
+import "./../styles/Common.css";
 import Checkbox from "./Checkbox";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 export default class Panel extends React.Component {
   constructor(props) {
@@ -11,28 +14,41 @@ export default class Panel extends React.Component {
     this.props.onPanelClick(this.props.panelId);
   };
 
-  onCheckboxChange = (e) => {
-    this.props.onPanelComplete(this.props.panelId);
-    this.setState({});
-  };
-
   render() {
     let panelContent = this.props.panelContent;
 
+    let thisPanelActive = this.props.panelId == this.props.activePanel;
+
     let className = "panel";
-    if (this.props.panelId == this.props.activePanel) {
+    let panelArrow;
+    if (thisPanelActive) {
       className += " panel-active";
+      panelArrow = (<KeyboardArrowUpIcon/>)
+    } else {
+        panelArrow = (<KeyboardArrowDownIcon/>)
     }
+
+    
 
     return (
       <div onClick={this.onClick} className={className}>
-        <h3>{panelContent.panelTitle}</h3>
+        <div className="panel-header">
+          <div className="panel-header-left">
+            <Checkbox
+              onCheckboxChange={this.props.onPanelComplete}
+              checkboxId={this.props.panelId}
+              key={this.props.panelId}
+            />
+          </div>
+          <div className="panel-header-title">
+            <p>{panelContent.panelTitle}</p>
+          </div>
+          <div className={"panel-header-right"}>
+              {panelArrow}
+          </div>
+        </div>
+
         <p>{panelContent.panelBody}</p>
-        <Checkbox
-          onCheckboxChange={this.onCheckboxChange}
-          checkboxId={this.props.panelId}
-          key={this.props.panelId}
-        />
       </div>
     );
   }

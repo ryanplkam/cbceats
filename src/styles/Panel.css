@@ -1,9 +1,29 @@
 .panel {
     padding: 10px;
+    text-align: left;
 }
 
 .panel h3 {
     margin-top: 0;
+}
+
+.panel-header {
+    display: flex;
+}
+
+.panel-header-title {
+    flex-grow: 1;
+}
+
+.panel-header-left {
+    margin-right: 10px;
+}
+
+.panel-header-right,
+.panel-header-left {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
 }
 
 .panel-active {
@@ -11,9 +31,9 @@
 }
 
 .panel.panel-active p {
-    display: inline;
+    
 }
 
 .panel p {
-    display:none;
+    
 }

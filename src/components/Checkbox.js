@@ -2,7 +2,7 @@ import React from "react";
 
 export default class Checkbox extends React.Component {
   onChange = (e) => {
-    this.props.onCheckboxChange(this.props.checkboxId);
+    this.props.onCheckboxChange(this.props.id);
   };
 
   onClick = (e) => {

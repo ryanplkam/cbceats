@@ -20,7 +20,7 @@ export default class PanelsContainer extends React.Component {
 
   onPanelClick = (panelId) => {
     this.setState({
-      activePanel: this.state.activePanel == panelId ? null : panelId,
+      activePanel: this.state.activePanel === panelId ? null : panelId,
     });
   };
 
@@ -46,7 +46,7 @@ export default class PanelsContainer extends React.Component {
       panels.push(
         <Panel
           key={index + 1}
-          panelId={index + 1}
+          id={index + 1}
           activePanel={this.state.activePanel}
           onPanelClick={this.onPanelClick}
           onPanelComplete={this.onPanelComplete}
@@ -56,7 +56,6 @@ export default class PanelsContainer extends React.Component {
     });
     return (
       <>
-        <div>Is any panel open? {`${this.state.activePanel != null}`}</div>
         <div>Currently open panel is {`${this.state.activePanel}`}</div>
         <div>
           This panel container is {this.getPercentComplete()}% completed

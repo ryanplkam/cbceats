@@ -11,13 +11,13 @@ export default class Panel extends React.Component {
   }
 
   onClick = (e) => {
-    this.props.onPanelClick(this.props.panelId);
+    this.props.onPanelClick(this.props.id);
   };
 
   render() {
     let panelContent = this.props.panelContent;
 
-    let thisPanelActive = this.props.panelId == this.props.activePanel;
+    let thisPanelActive = this.props.id === this.props.activePanel;
 
     let className = "panel";
     let panelArrow;
@@ -36,8 +36,8 @@ export default class Panel extends React.Component {
           <div className="panel-header-left">
             <Checkbox
               onCheckboxChange={this.props.onPanelComplete}
-              checkboxId={this.props.panelId}
-              key={this.props.panelId}
+              id={this.props.id}
+              key={this.props.id}
             />
           </div>
           <div className="panel-header-title">

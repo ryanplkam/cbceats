@@ -27,7 +27,7 @@
 }
 
 .panel-active {
-    background: green;
+    background:lightgreen;
 }
 
 .panel.panel-active p {

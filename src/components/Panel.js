@@ -16,12 +16,10 @@ export default class Panel extends React.Component {
 
   render() {
     let panelContent = this.props.panelContent;
-
-    let thisPanelActive = this.props.id === this.props.activePanel;
-
+     
     let className = "panel";
     let panelArrow;
-    if (thisPanelActive) {
+    if (this.props.active) {
       className += " panel-active";
       panelArrow = (<KeyboardArrowUpIcon/>)
     } else {

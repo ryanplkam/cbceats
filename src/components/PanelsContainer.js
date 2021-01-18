@@ -25,7 +25,7 @@ export default class PanelsContainer extends React.Component {
   };
 
   onPanelComplete = (panelId) => {
-    let newCompletedPanels = this.state.completedPanels;
+    let newCompletedPanels = [...this.state.completedPanels]; // Don't mutate state directly
     if (newCompletedPanels.includes(panelId)) {
       let idxToRemove = newCompletedPanels.indexOf(panelId);
       newCompletedPanels.splice(idxToRemove, 1);
@@ -43,11 +43,12 @@ export default class PanelsContainer extends React.Component {
   render() {
     let panels = [];
     this.props.panelsContent.forEach((panelContent, index) => {
+      let panelId = index + 1;
       panels.push(
         <Panel
-          key={index + 1}
-          id={index + 1}
-          activePanel={this.state.activePanel}
+          key={panelId}
+          id={panelId}
+          active={this.state.activePanel === panelId}
           onPanelClick={this.onPanelClick}
           onPanelComplete={this.onPanelComplete}
           panelContent={panelContent}

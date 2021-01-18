@@ -1,0 +1,13 @@
+.panel-container-header {
+    display: flex;
+    padding: 10px;
+}
+
+.panel-container-header-left {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.panel-container-header-right {
+    flex: 0 0 auto;
+}

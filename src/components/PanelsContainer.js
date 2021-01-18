@@ -1,5 +1,6 @@
 import React from "react";
 import Panel from "./Panel.js";
+import "./../styles/PanelsContainer.css";
 
 export default class PanelsContainer extends React.Component {
   constructor(props) {
@@ -56,12 +57,17 @@ export default class PanelsContainer extends React.Component {
       );
     });
     let percentComplete = this.getPercentComplete();
-
+    let className = "panel-container";
+    let message = percentComplete === 100 ? ":)" : "Check the boxes to get started."
     return (
-      <>
-        I'm {percentComplete}% complete. {percentComplete === 100 ? "Yay!" : percentComplete === 0 ? ":(" : ""}
+      <div className={className}>
+        {message}
+        <div className="panel-container-header">
+          <div className="panel-container-header-left"><b>Topics</b></div>
+          <div className="panel-container-header-right">Completion: {percentComplete}%</div>
+        </div>
         {panels}
-      </>
+      </div>
     );
   }
 }

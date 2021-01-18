@@ -27,7 +27,7 @@
 }
 
 .panel-active {
-    background:lightgreen;
+    background-color: rgb(175, 187, 206);
 }
 
 .panel.panel-active p {

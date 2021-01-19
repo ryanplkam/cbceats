@@ -7,9 +7,6 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default class Panel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   onClick = (e) => {
     this.props.onPanelSelect(this.props.id);

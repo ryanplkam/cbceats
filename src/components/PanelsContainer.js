@@ -3,14 +3,6 @@ import Panel from "./Panel.js";
 import "./../styles/PanelsContainer.css";
 
 export default class PanelsContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activePanel: null,
-    };
-  }
-
   getDisplayPercent = () => {
     let percentComplete = this.getPercentComplete();
     return isNaN(percentComplete) ? "" : percentComplete;
@@ -27,9 +19,7 @@ export default class PanelsContainer extends React.Component {
   };
 
   onPanelSelect = (panelId) => {
-    this.setState({
-      activePanel: this.state.activePanel === panelId ? null : panelId,
-    });
+    this.props.onPanelSelect(panelId);
   };
 
   onPanelComplete = (panelId) => {
@@ -53,7 +43,7 @@ export default class PanelsContainer extends React.Component {
         <Panel
           key={key}
           id={key}
-          active={this.state.activePanel === key}
+          active={value["active"]}
           onPanelSelect={this.onPanelSelect}
           onPanelComplete={this.onPanelComplete}
           onPanelDelete={this.props.onPanelDelete}
@@ -63,7 +53,6 @@ export default class PanelsContainer extends React.Component {
     }
 
     let className = "panel-container";
-    let percentCompletea = this.getPercentComplete();
     return (
       <div className={className}>
         {this.getMessage()}

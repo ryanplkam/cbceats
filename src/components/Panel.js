@@ -1,13 +1,12 @@
 import React from "react";
 import "./../styles/Panel.css";
 import "./../styles/Common.css";
-import Checkbox from "./Checkbox";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from "@material-ui/core/Checkbox";
 
 export default class Panel extends React.Component {
-
   onClick = (e) => {
     this.props.onPanelSelect(this.props.id);
   };
@@ -16,6 +15,14 @@ export default class Panel extends React.Component {
     e.stopPropagation();
     this.props.onPanelDelete(this.props.id);
   };
+
+  onComplete = (e) => {
+      this.props.onPanelComplete(this.props.id)
+  }
+
+  onCheckboxClick = (e) => {
+    e.stopPropagation();
+  }
 
   render() {
     let panelContent = this.props.panelContent;
@@ -34,7 +41,8 @@ export default class Panel extends React.Component {
         <div className="panel-header">
           <div className="panel-header-left">
             <Checkbox
-              onCheckboxChange={this.props.onPanelComplete}
+              onClick={this.onCheckboxClick}
+              onChange={this.onComplete}
               id={this.props.id}
               key={this.props.id}
             />

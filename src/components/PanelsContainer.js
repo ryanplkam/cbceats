@@ -22,10 +22,6 @@ export default class PanelsContainer extends React.Component {
     this.props.onPanelSelect(panelId);
   };
 
-  onPanelComplete = (panelId) => {
-    this.props.onPanelComplete(panelId);
-  };
-
   getMessage = () => {
     let percentComplete = this.getPercentComplete();
     if (isNaN(percentComplete))
@@ -48,7 +44,7 @@ export default class PanelsContainer extends React.Component {
           id={key}
           active={value["active"]}
           onPanelSelect={this.onPanelSelect}
-          onPanelComplete={this.onPanelComplete}
+          onPanelComplete={this.props.onPanelComplete}
           onPanelDelete={this.props.onPanelDelete}
           panelContent={value}
         ></Panel>

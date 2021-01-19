@@ -28,11 +28,14 @@ export default class PanelsContainer extends React.Component {
 
   getMessage = () => {
     let percentComplete = this.getPercentComplete();
-    return percentComplete === 100
-      ? ":)"
-      : isNaN(percentComplete)
-      ? "Oops, all out of boxes! Add some boxes or refresh the page to start again"
-      : "Check the boxes to get started.";
+    if (isNaN(percentComplete))
+      return "Oops, all out of boxes! Add some boxes or refresh the page to start again";
+    switch (percentComplete) {
+      case 100:
+        return ":)";
+      default:
+        return "Check the boxes to get started.";
+    }
   };
 
   render() {

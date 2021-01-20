@@ -6,22 +6,22 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      panelsContent: {
+      accordions: {
         1: {
-          panelTitle: "First panel",
-          panelBody: "Hello there",
+          summary: "First panel",
+          details: "Hello there",
           complete: false,
           active: false,
         },
         2: {
-          panelTitle: "Second panel",
-          panelBody: "Another happy landing",
+          summary: "Second panel",
+          details: "Another happy landing",
           complete: false,
           active: false,
         },
         3: {
-          panelTitle: "Third panel",
-          panelBody: "The negotiations were short",
+          summary: "Third panel",
+          details: "The negotiations were short",
           complete: false,
           active: false,
         },
@@ -30,13 +30,13 @@ export default class App extends React.Component {
   }
 
   onCreateNewEmptyPanel = () => {
-    let nextId = Math.max(...Object.keys(this.state.panelsContent)) + 1
+    let nextId = Math.max(...Object.keys(this.state.accordions)) + 1
     this.setState({
-      panelsContent: {
-        ...this.state.panelsContent,
+      accordions: {
+        ...this.state.accordions,
           [nextId]: {
-          panelTitle: "Lorem ipsum",
-          panelBody: "Lorem ipsum",
+          summary: "Lorem ipsum",
+          details: "Lorem ipsum",
           complete: false,
           active: false,
         },
@@ -44,31 +44,28 @@ export default class App extends React.Component {
     });
   };
 
-  onPanelComplete = (panelId) => {
-    let newPanelsContent = { ...this.state.panelsContent };
-    newPanelsContent[panelId]["complete"] = !newPanelsContent[panelId][
+  onPanelComplete = (accordionId) => {
+    let newAccordions = { ...this.state.accordions };
+    newAccordions[accordionId]["complete"] = !newAccordions[accordionId][
       "complete"
     ];
     this.setState({
-      panelsContent: newPanelsContent,
+      accordions: newAccordions,
     });
   };
 
-  onPanelDelete = (panelId) => {
-    let newPanelsContent = { ...this.state.panelsContent };
-    delete newPanelsContent[panelId];
+  onPanelDelete = (accordionId) => {
+    let newAccordions = { ...this.state.accordions };
+    delete newAccordions[accordionId];
     this.setState({
-      panelsContent: newPanelsContent,
+      accordions: newAccordions,
     });
   };
 
-  onPanelSelect = (panelId) => {
-    let newPanelsContent = { ...this.state.panelsContent };
-    newPanelsContent[panelId]["active"] = !newPanelsContent[panelId]["active"];
-    Object.entries(newPanelsContent)
-      .filter((entry) => entry[0] !== panelId)
-      .forEach((panel) => (panel[1]["active"] = false));
-    this.setState({ panelsContent: newPanelsContent });
+  onPanelSelect = (accordionId) => {
+    let newAccordions = { ...this.state.accordions };
+    newAccordions[accordionId]["active"] = !newAccordions[accordionId]["active"];
+    this.setState({ accordions: newAccordions });
   };
 
   render() {
@@ -76,10 +73,10 @@ export default class App extends React.Component {
       <div className="App">
         <PanelsContainer
           onCreateNewEmptyPanel={this.onCreateNewEmptyPanel}
-          onPanelDelete={this.onPanelDelete}
-          onPanelComplete={this.onPanelComplete}
-          onPanelSelect={this.onPanelSelect}
-          panelsContent={this.state.panelsContent}
+          onAccordionDelete={this.onPanelDelete}
+          onAccordionComplete={this.onPanelComplete}
+          onAccordionSelect={this.onPanelSelect}
+          accordions={this.state.accordions}
         ></PanelsContainer>
       </div>
     );

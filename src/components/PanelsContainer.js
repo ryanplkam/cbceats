@@ -1,5 +1,5 @@
 import React from "react";
-import Panel from "./Panel.js";
+import MyAccordion from "./MyAccordion.js";
 import "./../styles/PanelsContainer.css";
 
 export default class PanelsContainer extends React.Component {
@@ -11,15 +11,14 @@ export default class PanelsContainer extends React.Component {
   // returns NaN or a number 0 - 100
   getPercentComplete = () => {
     return Math.round(
-      (Object.values(this.props.panelsContent).filter((x) => x.complete)
-        .length /
-        Object.keys(this.props.panelsContent).length) *
+      (Object.values(this.props.accordions).filter((x) => x.complete).length /
+        Object.keys(this.props.accordions).length) *
         100
     );
   };
 
   onPanelSelect = (panelId) => {
-    this.props.onPanelSelect(panelId);
+    this.props.onAccordionSelect(panelId);
   };
 
   getMessage = () => {
@@ -34,20 +33,19 @@ export default class PanelsContainer extends React.Component {
     }
   };
 
-    render() {
-    let panels = [];
-
-    for (const [key, value] of Object.entries(this.props.panelsContent)) {
-      panels.push(
-        <Panel
-          key={key}
+  render() {
+    let accordions = [];
+    for (const [key, value] of Object.entries(this.props.accordions)) {
+      accordions.push(
+        <MyAccordion
           id={key}
-          active={value["active"]}
-          onPanelSelect={this.onPanelSelect}
-          onPanelComplete={this.props.onPanelComplete}
-          onPanelDelete={this.props.onPanelDelete}
-          panelContent={value}
-        ></Panel>
+          key={key}
+          summary={value.summary}
+          details={value.details}
+          onAccordionSelect={this.onPanelSelect}
+          onAccordionComplete={this.props.onAccordionComplete}
+          onAccordionDelete={this.props.onAccordionDelete}
+        ></MyAccordion>
       );
     }
 
@@ -64,7 +62,7 @@ export default class PanelsContainer extends React.Component {
             Completion: {this.getDisplayPercent()}%
           </div>
         </div>
-        {panels}
+        {accordions}
       </div>
     );
   }

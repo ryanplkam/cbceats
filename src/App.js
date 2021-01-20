@@ -29,6 +29,21 @@ export default class App extends React.Component {
     };
   }
 
+  onCreateNewEmptyPanel = () => {
+    let nextId = Math.max(...Object.keys(this.state.panelsContent)) + 1
+    this.setState({
+      panelsContent: {
+        ...this.state.panelsContent,
+          [nextId]: {
+          panelTitle: "Lorem ipsum",
+          panelBody: "Lorem ipsum",
+          complete: false,
+          active: false,
+        },
+      },
+    });
+  };
+
   onPanelComplete = (panelId) => {
     let newPanelsContent = { ...this.state.panelsContent };
     newPanelsContent[panelId]["complete"] = !newPanelsContent[panelId][
@@ -60,6 +75,7 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <PanelsContainer
+          onCreateNewEmptyPanel={this.onCreateNewEmptyPanel}
           onPanelDelete={this.onPanelDelete}
           onPanelComplete={this.onPanelComplete}
           onPanelSelect={this.onPanelSelect}

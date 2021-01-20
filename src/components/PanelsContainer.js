@@ -34,7 +34,7 @@ export default class PanelsContainer extends React.Component {
     }
   };
 
-  render() {
+    render() {
     let panels = [];
 
     for (const [key, value] of Object.entries(this.props.panelsContent)) {
@@ -54,6 +54,7 @@ export default class PanelsContainer extends React.Component {
     let className = "panel-container";
     return (
       <div className={className}>
+        {/*<div onClick={this.props.onCreateNewEmptyPanel}>Click me to create a new empty panel</div>*/}
         {this.getMessage()}
         <div className="panel-container-header">
           <div className="panel-container-header-left">

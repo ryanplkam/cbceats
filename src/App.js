@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import PanelsContainer from "./components/PanelsContainer.js";
+import MyFab from "./components/MyFab.js";
 
 export default class App extends React.Component {
   constructor() {
@@ -78,6 +79,7 @@ export default class App extends React.Component {
           onAccordionSelect={this.onPanelSelect}
           accordions={this.state.accordions}
         ></PanelsContainer>
+        <MyFab></MyFab>
       </div>
     );
   }

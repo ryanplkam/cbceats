@@ -17,10 +17,6 @@ export default class PanelsContainer extends React.Component {
     );
   };
 
-  onPanelSelect = (panelId) => {
-    this.props.onAccordionSelect(panelId);
-  };
-
   getMessage = () => {
     let percentComplete = this.getPercentComplete();
     if (isNaN(percentComplete))
@@ -42,7 +38,7 @@ export default class PanelsContainer extends React.Component {
           key={key}
           summary={value.summary}
           details={value.details}
-          onAccordionSelect={this.onPanelSelect}
+          onAccordionSelect={this.props.onAccordionSelect}
           onAccordionComplete={this.props.onAccordionComplete}
           onAccordionDelete={this.props.onAccordionDelete}
         ></MyAccordion>
@@ -52,7 +48,6 @@ export default class PanelsContainer extends React.Component {
     let className = "panel-container";
     return (
       <div className={className}>
-        {/*<div onClick={this.props.onCreateNewEmptyPanel}>Click me to create a new empty panel</div>*/}
         {this.getMessage()}
         <div className="panel-container-header">
           <div className="panel-container-header-left">

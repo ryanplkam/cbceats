@@ -5,27 +5,37 @@ import AddIcon from "@material-ui/icons/Add";
 import "./../styles/MyFab.css";
 
 export default function MyFab(props) {
-  // returns a function
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const useStyles = makeStyles({
-    fabDesktop: {
+    fabBase: {
       position: "absolute",
-      bottom: "40px",
-      right: "10%",
+      bottom: isMobile ? "20px" : "40px",
     },
-    fabMobile: {
-      position: "absolute",
-      bottom: "20px",
-      right: "16px",
+    fabLeft: {
+      left: isMobile ? "16px" : "10%",
+    },
+    fabRight: {
+      right: isMobile ? "16px" : "10%",
     },
   });
   const classes = useStyles();
 
-  const isMobile = useMediaQuery("(max-width: 600px)");
-
-  let className = isMobile ? classes.fabMobile : classes.fabDesktop;
+  let alignmentClass;
+  switch (props.alignment) {
+    case "right":
+      alignmentClass = classes.fabRight;
+      break;
+    case "left":
+      alignmentClass = classes.fabRight;
+      break;
+  }
 
   return (
-    <Fab className={className}>
+    <Fab
+      onClick={props.onFabClick}
+      className={`${classes.fabBase} ${alignmentClass}`}
+    >
       <AddIcon></AddIcon>
     </Fab>
   );

@@ -18,26 +18,25 @@ export default class MyAccordion extends Component {
 
   render() {
     return (
-      <>
-        <Accordion onClick={this.onClick}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <FormControlLabel
-              aria-label="Acknowledge"
-              onClick={(event) => event.stopPropagation()}
-              onFocus={(event) => event.stopPropagation()}
-              control={<Checkbox onChange={this.onComplete} />}
-              label={this.props.summary}
-            />
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{this.props.details}</Typography>
-          </AccordionDetails>
-        </Accordion>
-      </>
+      <Accordion onClick={this.onClick}>
+        <AccordionSummary
+          aria-label="Select"
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <FormControlLabel
+            aria-label="Acknowledge"
+            onClick={(event) => event.stopPropagation()}
+            onFocus={(event) => event.stopPropagation()}
+            control={<Checkbox onChange={this.onComplete} />}
+            label={this.props.summary}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>{this.props.details}</Typography>
+        </AccordionDetails>
+      </Accordion>
     );
   }
 }

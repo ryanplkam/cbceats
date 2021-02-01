@@ -11,21 +11,31 @@ import MyFab from "./MyFab.js";
 export default function FormDialog() {
   // useState returns the current state and the function that updates it
   // similar to this.state.count and this.setState
-  const [open, setOpen] = React.useState(false);
+  const [formState, setState] = React.useState({
+    open: false,
+    email: "",
+  });
+
+  const handleEmailChange = (e) => {
+      let newState = { ...formState, email: e.target.value };  
+      setState(newState)
+  }
 
   const handleClickOpen = () => {
-    setOpen(true);
+    let newState = { ...formState, open: true };
+    setState(newState);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    let newState = { ...formState, open: false };
+    setState(newState);
   };
 
   return (
     <div>
       <MyFab alignment="right" onFabClick={handleClickOpen}></MyFab>
       <Dialog
-        open={open}
+        open={formState.open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
@@ -42,6 +52,8 @@ export default function FormDialog() {
             label="Email Address"
             type="email"
             fullWidth
+            value={formState.email}
+            onChange={handleEmailChange}
           />
         </DialogContent>
         <DialogActions>

@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import AccordionContainer from "./components/AccordionContainer.js";
-import MyFab from "./components/MyFab.js";
 import FormDialog from "./components/FormDialog.js";
 
 export default class App extends React.Component {
@@ -31,12 +30,29 @@ export default class App extends React.Component {
     };
   }
 
-  onCreateNewEmptyPanel = () => {
-    let nextId = Math.max(...Object.keys(this.state.accordions)) + 1;
+  nextAccordionId = () => {
+    return Math.max(...Object.keys(this.state.accordions)) + 1;
+  };
+
+  onCreateAccordion = (accordion) => {
     this.setState({
       accordions: {
         ...this.state.accordions,
-        [nextId]: {
+        [this.nextAccordionId()]: {
+          summary: accordion.summary,
+          details: accordion.details,
+          complete: false,
+          active: false,
+        },
+      },
+    });
+  };
+
+  onCreateNewEmptyPanel = () => {
+    this.setState({
+      accordions: {
+        ...this.state.accordions,
+        [this.nextAccordionId()]: {
           summary: "Lorem ipsum",
           details: "Lorem ipsum",
           complete: false,
@@ -82,8 +98,7 @@ export default class App extends React.Component {
           onAccordionSelect={this.onPanelSelect}
           accordions={this.state.accordions}
         ></AccordionContainer>
-        <FormDialog></FormDialog>
-        {/*<MyFab alignment="right"></MyFab>*/}
+        <FormDialog onCreateAccordion={this.onCreateAccordion}></FormDialog>
       </div>
     );
   }

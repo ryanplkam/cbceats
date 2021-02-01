@@ -33,7 +33,7 @@ export default function MyFab(props) {
 
   return (
     <Fab
-      onClick={props.onFabClick}
+      onClick={props.onClick}
       className={`${classes.fabBase} ${alignmentClass}`}
     >
       <AddIcon></AddIcon>

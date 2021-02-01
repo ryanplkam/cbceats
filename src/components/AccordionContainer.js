@@ -1,8 +1,8 @@
 import React from "react";
 import MyAccordion from "./MyAccordion.js";
-import "./../styles/PanelsContainer.css";
+import "./../styles/AccordionContainer.css";
 
-export default class PanelsContainer extends React.Component {
+export default class AccordionContainer extends React.Component {
   getDisplayPercent = () => {
     let percentComplete = this.getPercentComplete();
     return isNaN(percentComplete) ? "" : percentComplete;

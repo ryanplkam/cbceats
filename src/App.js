@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import PanelsContainer from "./components/PanelsContainer.js";
+import AccordionContainer from "./components/AccordionContainer.js";
 import MyFab from "./components/MyFab.js";
 import FormDialog from "./components/FormDialog.js";
 
@@ -75,13 +75,13 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <PanelsContainer
+        <AccordionContainer
           onCreateNewEmptyPanel={this.onCreateNewEmptyPanel}
           onAccordionDelete={this.onPanelDelete}
           onAccordionComplete={this.onPanelComplete}
           onAccordionSelect={this.onPanelSelect}
           accordions={this.state.accordions}
-        ></PanelsContainer>
+        ></AccordionContainer>
         <FormDialog></FormDialog>
         {/*<MyFab alignment="right"></MyFab>*/}
       </div>

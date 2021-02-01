@@ -13,13 +13,19 @@ export default function FormDialog() {
   // similar to this.state.count and this.setState
   const [formState, setState] = React.useState({
     open: false,
-    email: "",
+    summary: "",
+    details: "",
   });
 
-  const handleEmailChange = (e) => {
-      let newState = { ...formState, email: e.target.value };  
-      setState(newState)
-  }
+  const handleSummaryChange = (e) => {
+    let newState = { ...formState, summary: e.target.value };
+    setState(newState);
+  };
+
+  const handleDetailsChange = (e) => {
+    let newState = { ...formState, details: e.target.value };
+    setState(newState);
+  };
 
   const handleClickOpen = () => {
     let newState = { ...formState, open: true };
@@ -31,29 +37,40 @@ export default function FormDialog() {
     setState(newState);
   };
 
+  const { open, summary, details } = formState;
+
   return (
     <div>
       <MyFab alignment="right" onFabClick={handleClickOpen}></MyFab>
       <Dialog
-        open={formState.open}
+        open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add a topic</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            To add a new topic, please enter the topic summary and details here.
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address"
-            type="email"
+            label="Summary"
+            type="text"
             fullWidth
-            value={formState.email}
-            onChange={handleEmailChange}
+            value={summary}
+            onChange={handleSummaryChange}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Details"
+            type="text"
+            fullWidth
+            value={details}
+            onChange={handleDetailsChange}
           />
         </DialogContent>
         <DialogActions>

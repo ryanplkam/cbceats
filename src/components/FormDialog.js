@@ -63,7 +63,6 @@ export default function FormDialog() {
             onChange={handleSummaryChange}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             label="Details"

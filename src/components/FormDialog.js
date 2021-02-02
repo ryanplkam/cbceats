@@ -8,105 +8,124 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MyFab from "./MyFab.js";
 
-export default function FormDialog(props) {
-  // useState returns the current state and the function that updates it
-  // similar to this.state.count and this.setState
-  const [formState, setState] = React.useState({
-    open: false,
-    summary: "",
-    details: "",
-    errors: {
+export default class FormDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.defaultState = {
+      open: false,
       summary: "",
       details: "",
-    },
-  });
+      errors: {
+        summary: "",
+        details: "",
+      },
+    };
+    this.state = this.defaultState;
+  }
 
-  // TODO refactor this into a regular component, to use setState callback to do validation
-
-  const handleSubmit = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    props.onCreateAccordion({
-      summary: formState.summary,
-      details: formState.details,
+    if (Object.values(this.state.errors).some((error) => error !== "")) return;
+    this.props.onCreateAccordion({
+      summary: this.state.summary,
+      details: this.state.details,
     });
-    setState({
-      ...formState,
-      summary: "",
-      details: "",
+    this.setState(this.defaultState);
+  };
+
+  validateField = (field, fieldError) => {
+    this.setState({
+      ...this.state,
+      errors: {
+        ...this.state.errors,
+        [field]: fieldError,
+      },
     });
   };
 
-  const handleSummaryChange = (e) => {
-    let newState = { ...formState, summary: e.target.value };
-    setState(newState);
+  handleSummaryChange = (e) => {
+    let summaryValue = e.target.value;
+    let summaryError = summaryValue ? "" : "Summary cannot be blank";
+    let newState = {
+      ...this.state,
+      summary: summaryValue,
+    };
+    this.setState(newState, function () {
+      this.validateField("summary", summaryError);
+    });
   };
 
-  const handleDetailsChange = (e) => {
-    let newState = { ...formState, details: e.target.value };
-    setState(newState);
+  handleDetailsChange = (e) => {
+    let detailsValue = e.target.value;
+    let detailsError = detailsValue ? "" : "Details cannot be blank";
+    let newState = { ...this.state, details: detailsValue };
+    this.setState(newState, function () {
+      this.validateField("details", detailsError);
+    });
   };
 
-  const handleClickOpen = () => {
-    let newState = { ...formState, open: true };
-    setState(newState);
+  handleClickOpen = (e) => {
+    let newState = { ...this.state, open: true };
+    this.setState(newState);
   };
 
-  const handleClose = () => {
-    let newState = { ...formState, open: false };
-    setState(newState);
+  handleClose = (e) => {
+    let newState = { ...this.state, open: false };
+    this.setState(newState);
   };
 
-  const { open, summary, details } = formState;
-
-  return (
-    <div>
-      <MyFab alignment="right" onClick={handleClickOpen}></MyFab>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Add a topic</DialogTitle>
-        <form onSubmit={handleSubmit}>
-          <DialogContent>
-            <DialogContentText>
-              To add a new topic, please enter the topic summary and details
-              here.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="summary"
-              label="Summary"
-              type="text"
-              fullWidth
-              value={summary}
-              onChange={handleSummaryChange}
-              error={Boolean(formState.errors.summary)}
-              helperText={formState.errors.summary}
-            />
-            <TextField
-              margin="dense"
-              id="details"
-              label="Details"
-              type="text"
-              fullWidth
-              value={details}
-              onChange={handleDetailsChange}
-              error={Boolean(formState.errors.details)}
-              helperText={formState.errors.details}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleClose} color="primary" type="submit">
-              Add
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
-    </div>
-  );
+  render() {
+    let { errors, open, summary, details } = this.state;
+    return (
+      <div>
+        <MyFab alignment="right" onClick={this.handleClickOpen}></MyFab>
+        <Dialog
+          open={open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Add a topic</DialogTitle>
+          <form onSubmit={this.handleSubmit}>
+            <DialogContent>
+              <DialogContentText>
+                To add a new topic, please enter the topic summary and details
+                here.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="summary"
+                label="Summary"
+                type="text"
+                fullWidth
+                value={summary}
+                onChange={this.handleSummaryChange}
+                error={Boolean(errors.summary)}
+                helperText={errors.summary}
+              />
+              <TextField
+                margin="dense"
+                id="details"
+                label="Details"
+                type="text"
+                fullWidth
+                value={details}
+                onChange={this.handleDetailsChange}
+                error={Boolean(errors.details)}
+                helperText={errors.details}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button color="primary" type="submit">
+                Add
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
+      </div>
+    );
+  }
 }

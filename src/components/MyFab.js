@@ -29,6 +29,8 @@ export default function MyFab(props) {
     case "left":
       alignmentClass = classes.fabRight;
       break;
+    default:
+      alignmentClass = ""
   }
 
   return (

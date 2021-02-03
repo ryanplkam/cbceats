@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import AccordionContainer from "./components/AccordionContainer.js";
 import FormDialog from "./components/FormDialog.js";
+import Footer from "./components/Footer.js";
 
 export default class App extends React.Component {
   constructor() {
@@ -99,6 +100,7 @@ export default class App extends React.Component {
           accordions={this.state.accordions}
         ></AccordionContainer>
         <FormDialog onCreateAccordion={this.onCreateAccordion}></FormDialog>
+        <Footer></Footer>
       </div>
     );
   }

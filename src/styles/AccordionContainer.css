@@ -1,3 +1,7 @@
+.panel-container {
+    margin: 0 0 20px;
+}
+
 .panel-container-header {
     display: flex;
     padding: 10px;

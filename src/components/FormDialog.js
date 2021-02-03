@@ -11,6 +11,10 @@ import MyFab from "./MyFab.js";
 export default class FormDialog extends React.Component {
   constructor(props) {
     super(props);
+    this.fieldErrors = {
+      summary: "Summary cannot be blank",
+      details: "Details cannot be blank",
+    };
     this.defaultState = {
       open: false,
       summary: "",
@@ -25,7 +29,11 @@ export default class FormDialog extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.values(this.state.errors).some((error) => error !== "")) return;
+    let errors = this.validateFields();
+    if (Object.values(errors).some((error) => error !== "")) {
+      this.setState({ ...this.state, errors: errors });
+      return;
+    }
     this.props.onCreateAccordion({
       summary: this.state.summary,
       details: this.state.details,
@@ -33,7 +41,16 @@ export default class FormDialog extends React.Component {
     this.setState(this.defaultState);
   };
 
-  validateField = (field, fieldError) => {
+  validateFields = () => {
+    let errors = {};
+    for (let [field, fieldErrorText] of Object.entries(this.fieldErrors)) {
+      errors[field] = this.state[field] ? "" : fieldErrorText;
+    }
+    return errors;
+  };
+
+  validateField = (field, fieldErrorMessage) => {
+    let fieldError = this.state[field] ? "" : fieldErrorMessage;
     this.setState({
       ...this.state,
       errors: {
@@ -44,32 +61,28 @@ export default class FormDialog extends React.Component {
   };
 
   handleSummaryChange = (e) => {
-    let summaryValue = e.target.value;
-    let summaryError = summaryValue ? "" : "Summary cannot be blank";
     let newState = {
       ...this.state,
-      summary: summaryValue,
+      summary: e.target.value,
     };
     this.setState(newState, function () {
-      this.validateField("summary", summaryError);
+      this.validateField("summary", "Summary cannot be blank");
     });
   };
 
   handleDetailsChange = (e) => {
-    let detailsValue = e.target.value;
-    let detailsError = detailsValue ? "" : "Details cannot be blank";
-    let newState = { ...this.state, details: detailsValue };
+    let newState = { ...this.state, details: e.target.value };
     this.setState(newState, function () {
-      this.validateField("details", detailsError);
+      this.validateField("details", "Details cannot be blank");
     });
   };
 
-  handleClickOpen = (e) => {
+  handleClickOpen = () => {
     let newState = { ...this.state, open: true };
     this.setState(newState);
   };
 
-  handleClose = (e) => {
+  handleClose = () => {
     let newState = { ...this.state, open: false };
     this.setState(newState);
   };
@@ -82,9 +95,10 @@ export default class FormDialog extends React.Component {
         <Dialog
           open={open}
           onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby=""
+          disableScrollLock={true}
         >
-          <DialogTitle id="form-dialog-title">Add a topic</DialogTitle>
+          <DialogTitle id="">Add a topic</DialogTitle>
           <form onSubmit={this.handleSubmit}>
             <DialogContent>
               <DialogContentText>
@@ -94,7 +108,7 @@ export default class FormDialog extends React.Component {
               <TextField
                 autoFocus
                 margin="dense"
-                id="summary"
+                id=""
                 label="Summary"
                 type="text"
                 fullWidth
@@ -105,7 +119,7 @@ export default class FormDialog extends React.Component {
               />
               <TextField
                 margin="dense"
-                id="details"
+                id=""
                 label="Details"
                 type="text"
                 fullWidth

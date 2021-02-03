@@ -23,7 +23,7 @@ export default class MyAccordion extends Component {
           aria-label="Select"
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
-          id="panel1a-header"
+          id=""
         >
           <FormControlLabel
             aria-label="Acknowledge"

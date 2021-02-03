@@ -9,7 +9,7 @@ export default function MyFab(props) {
 
   const useStyles = makeStyles({
     fabBase: {
-      position: "absolute",
+      position: "fixed",
       bottom: isMobile ? "20px" : "40px",
     },
     fabLeft: {

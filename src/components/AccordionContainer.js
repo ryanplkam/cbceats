@@ -20,7 +20,7 @@ export default class AccordionContainer extends React.Component {
   getMessage = () => {
     let percentComplete = this.getPercentComplete();
     if (isNaN(percentComplete))
-      return "Oops, all out of boxes! Add some boxes or refresh the page to start again";
+      return "Oops, all out of tasks! Add some or refresh the page to start again";
     switch (percentComplete) {
       case 100:
         return ":)";
@@ -51,7 +51,7 @@ export default class AccordionContainer extends React.Component {
         {this.getMessage()}
         <div className="panel-container-header">
           <div className="panel-container-header-left">
-            <b>Topics</b>
+            <b>Tasks</b>
           </div>
           <div className="panel-container-header-right">
             Completion: {this.getDisplayPercent()}%

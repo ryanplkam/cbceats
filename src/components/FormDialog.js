@@ -98,12 +98,11 @@ export default class FormDialog extends React.Component {
           aria-labelledby=""
           disableScrollLock={true}
         >
-          <DialogTitle id="">Add a topic</DialogTitle>
+          <DialogTitle id="">Add a task</DialogTitle>
           <form onSubmit={this.handleSubmit}>
             <DialogContent>
               <DialogContentText>
-                To add a new topic, please enter the topic summary and details
-                here.
+                To add a new task, enter the task title and details here.
               </DialogContentText>
               <TextField
                 autoFocus

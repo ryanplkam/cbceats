@@ -10,20 +10,20 @@ export default class App extends React.Component {
     this.state = {
       accordions: {
         1: {
-          summary: "First panel",
-          details: "Hello there",
+          summary: "Groceries",
+          details: "Buy beef, eggs, and cheese",
           complete: false,
           active: false,
         },
         2: {
-          summary: "Second panel",
-          details: "Another happy landing",
+          summary: "Haircut",
+          details: "Low fade with disconnected fringe",
           complete: false,
           active: false,
         },
         3: {
-          summary: "Third panel",
-          details: "The negotiations were short",
+          summary: "Work on side project",
+          details: "Complete the AWS React App tutorial",
           complete: false,
           active: false,
         },

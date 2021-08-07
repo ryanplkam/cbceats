@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
-import AccordionContainer from "./components/AccordionContainer.js";
-import FormDialog from "./components/FormDialog.js";
-import Footer from "./components/Footer.js";
+import About from "./components/About";
+import Eats from "./components/Eats";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default class App extends React.Component {
   constructor() {
@@ -65,9 +66,8 @@ export default class App extends React.Component {
 
   onPanelComplete = (accordionId) => {
     let newAccordions = { ...this.state.accordions };
-    newAccordions[accordionId]["complete"] = !newAccordions[accordionId][
-      "complete"
-    ];
+    newAccordions[accordionId]["complete"] =
+      !newAccordions[accordionId]["complete"];
     this.setState({
       accordions: newAccordions,
     });
@@ -83,25 +83,44 @@ export default class App extends React.Component {
 
   onPanelSelect = (accordionId) => {
     let newAccordions = { ...this.state.accordions };
-    newAccordions[accordionId]["active"] = !newAccordions[accordionId][
-      "active"
-    ];
+    newAccordions[accordionId]["active"] =
+      !newAccordions[accordionId]["active"];
     this.setState({ accordions: newAccordions });
   };
 
+  About() {
+    return <h2>About</h2>;
+  }
+
+  Eats() {
+    return <h2>Eats</h2>;
+  }
+
   render() {
     return (
-      <div className="App">
-        <AccordionContainer
-          onCreateNewEmptyPanel={this.onCreateNewEmptyPanel}
-          onAccordionDelete={this.onPanelDelete}
-          onAccordionComplete={this.onPanelComplete}
-          onAccordionSelect={this.onPanelSelect}
-          accordions={this.state.accordions}
-        ></AccordionContainer>
-        <FormDialog onCreateAccordion={this.onCreateAccordion}></FormDialog>
-        <Footer></Footer>
-      </div>
+      <Router>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/eats">Topics</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route path="/eats">
+            <Eats />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Switch>
+        {/* </div> */}
+      </Router>
     );
   }
 }
